@@ -71,7 +71,7 @@ function RegisterUser() {
                 
                 <CCardBody style={{padding:"35px"}}>
                     <CCardTitle>
-                        <span style={{fontSize:"30px", display:"block", padding:"20px 20px", display:"flex", alignItems:"center"}}>
+                        <span style={{fontSize:"30px", padding:"20px 20px", display:"flex", alignItems:"center"}}>
                             <CImage src={userRegistration} height={32} style={{marginRight:"7px"}}/> User Registration
                         </span>
                     </CCardTitle>
