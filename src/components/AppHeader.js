@@ -13,6 +13,7 @@ import {
   CNavLink,
   CNavItem,
   useColorModes,
+  CButton
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import {
@@ -22,11 +23,13 @@ import {
   cilList,
   cilMenu,
   cilMoon,
+  cilPowerStandby,
   cilSun,
 } from '@coreui/icons'
 
 import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
+import Cookies from 'js-cookie';
 
 const AppHeader = () => {
   const headerRef = useRef()
@@ -62,6 +65,7 @@ const AppHeader = () => {
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav className="ms-auto">
+        {/*
           <CNavItem>
             <CNavLink href="#">
               <CIcon icon={cilBell} size="lg" />
@@ -72,16 +76,28 @@ const AppHeader = () => {
               <CIcon icon={cilList} size="lg" />
             </CNavLink>
           </CNavItem>
+
           <CNavItem>
             <CNavLink href="#">
               <CIcon icon={cilEnvelopeOpen} size="lg" />
             </CNavLink>
           </CNavItem>
+            */
+        }     
+          <CNavItem>
+            <CNavLink href="#">
+              <CButton color="primary" onClick={()=>Cookies.remove('refreshToken', { path: '/' })}>
+                <CIcon icon={cilPowerStandby} style={{marginRight:"5px"}}/>Sign out
+              </CButton>
+            </CNavLink>
+          </CNavItem>
         </CHeaderNav>
+        
         <CHeaderNav>
           <li className="nav-item py-1">
             <div className="vr h-100 mx-2 text-body text-opacity-75"></div>
           </li>
+          {/*
           <CDropdown variant="nav-item" placement="bottom-end">
             <CDropdownToggle caret={false}>
               {colorMode === 'dark' ? (
@@ -122,11 +138,15 @@ const AppHeader = () => {
               </CDropdownItem>
             </CDropdownMenu>
           </CDropdown>
+          
           <li className="nav-item py-1">
             <div className="vr h-100 mx-2 text-body text-opacity-75"></div>
           </li>
-          <AppHeaderDropdown />
+          
+          <AppHeaderDropdown />http://localhost:8080/h2-console
+          */}
         </CHeaderNav>
+        
       </CContainer>
       <CContainer className="px-4" fluid>
         <AppBreadcrumb />

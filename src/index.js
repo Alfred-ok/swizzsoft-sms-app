@@ -5,9 +5,13 @@ import 'core-js'
 
 import App from './App'
 import store from './store'
+import { AuthProvider } from './Context/AuthProvider'
 
 createRoot(document.getElementById('root')).render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+    <AuthProvider>
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    </AuthProvider>
+  
 )

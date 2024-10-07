@@ -19,16 +19,36 @@ import {
   cilSpeedometer,
   cilStar,
   cilViewQuilt,
+  cilBriefcase,
 } from '@coreui/icons'
 
 
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
+
 const _nav = [
+  /*
+
+  {
+    component: CNavTitle,
+    name: 'User',
+    role: 'USER',
+  },
+
+
+  {
+    component: CNavTitle,
+    name: 'Admin',
+    role: 'ADMIN',
+  },
+
+*/
+
   {
     component: CNavItem,
     name: 'Dashboard',
     to: '/dashboard',
+    role:"Allmembers",
     icon: <CIcon icon={cilViewQuilt} customClassName="nav-icon" />,
     /*badge: {
       color: 'info',
@@ -36,30 +56,34 @@ const _nav = [
     },*/
   },
 
-
   //SMS and Campaigns
 
+  
 
   {
     component: CNavGroup,
     name: 'SMS & Campaigns',
     to: '/',
     icon: <CIcon icon={cilSpeech} customClassName="nav-icon" />,
+    role: 'USER',
     items: [
       {
         component: CNavItem,
         name: 'Send SMS',
         to: '/send-sms',
+        role: 'User',
       },
       {
         component: CNavItem,
         name: 'Send from file',
         to: '/send-from-file',
+        role: 'User',
       },
       {
         component: CNavItem,
         name: 'Sent Messages',
         to: '/sent-messages',
+        role: 'User',
       },
     ],
     
@@ -96,11 +120,13 @@ const _nav = [
     name: 'Purchases',
     to: '/base',
     icon: <CIcon icon={cilCash} customClassName="nav-icon" />,
+    role: 'User',
     items: [
       {
         component: CNavItem,
         name: 'Buy now',
         to: '/buy-now',
+        role: 'User',
       },
       /*
       {
@@ -111,6 +137,7 @@ const _nav = [
       */
     ],
   },
+
 
 
   //client
@@ -169,6 +196,58 @@ const _nav = [
     ],
   },
 */
+
+
+
+///organisation
+
+
+
+
+
+
+{
+  component: CNavGroup,
+  name: 'Organisation',
+  to: '/organisation',
+  icon: <CIcon icon={cilBriefcase} customClassName="nav-icon" />,
+  role: 'Admin',
+  items: [
+    {
+      component: CNavItem,
+      name: 'organisations',
+      to: '/organisation',
+      role: 'Admin',
+    },
+    {
+      component: CNavItem,
+      name: 'Register Organisation',
+      to: '/organistion-registeration',
+      role: 'Admin',
+    },
+  ],
+},
+{
+  component: CNavGroup,
+  name: 'User',
+  to: '/',
+  icon: <CIcon icon={ cilPeople} customClassName="nav-icon" />,
+  role: 'Admin',
+  items: [
+    {
+      component: CNavItem,
+      name: 'Users',
+      to: '/user',
+      role: 'Admin',
+    },
+    {
+      component: CNavItem,
+      name: 'Register User',
+      to: '/user-registration',
+      role: 'Admin',
+    },
+  ],
+},
 
 
 
@@ -431,7 +510,7 @@ const _nav = [
       color: 'info',
       text: 'NEW',
     },
-  },
+  },*/
   {
     component: CNavTitle,
     name: 'Extras',
@@ -463,7 +542,7 @@ const _nav = [
       },
     ],
   },
-  
+  /*
   {
     component: CNavItem,
     name: 'Docs',

@@ -211,7 +211,9 @@ const Dashboard = () => {
             </CCol>
         </CRow>     
       </CContainer>
-
+      
+{
+  /*
 
       <CContainer style={{marginTop:"30px"}}>
         <CRow className="justify-content-center" >
@@ -259,8 +261,9 @@ const Dashboard = () => {
             </CCol>
         </CRow>     
       </CContainer>
+      */
 
-
+    }
       
       
       {/*

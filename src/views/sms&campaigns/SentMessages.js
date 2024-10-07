@@ -235,7 +235,7 @@ function SentMessages() {
       ]
   return (
     <>
-         <CCard style={{marginBottom:'30px'}}>
+         <CCard style={{marginBottom:'30px', boxShadow: '0px 15px 34px 0px rgba(0,0,0,0.2)' }}>
             <CCardBody>
                 <CCardTitle>
                     <h4>Sent Messages</h4>

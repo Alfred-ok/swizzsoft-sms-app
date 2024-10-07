@@ -9,11 +9,11 @@ function NetworkPieChart() {
             style={{ padding: '10px', width: '100%'}}
             type="doughnut"
             data={{
-                labels: ['Telkom', 'Airtel', 'Safaricom', 'Faiba'],
+                labels: ['Safaricom'],
                 datasets: [
                 {
-                    backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
-                    data: [40, 20, 80, 10],
+                    backgroundColor: [ '#fff','green'],
+                    data: [20, 80],
                 },
                 ],
             }}

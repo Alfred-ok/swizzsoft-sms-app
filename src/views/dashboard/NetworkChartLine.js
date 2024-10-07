@@ -13,14 +13,6 @@ function NetworkChartLine() {
             labels: ["January", "February", "March", "April", "May", "June", "July","August","September","October","November","December"],
             datasets: [
             {
-                label: "AIRTEL",
-                backgroundColor: "red",
-                borderColor: "red",
-                pointBackgroundColor: "red",
-                pointBorderColor: "#fff",
-                data: [10, 8, 4, 3, 0, 4, 8, 9, 8,5,3,2,0]
-            },
-            {
                 label: "SAFCOM",
                 backgroundColor: "green",
                 borderColor: "green",
@@ -28,6 +20,16 @@ function NetworkChartLine() {
                 pointBorderColor: "#fff",
                 data: [20, 25, 20, 10, 8, 15, 20, 28, 25,15,20,60]
             },
+            /*
+            {
+                label: "AIRTEL",
+                backgroundColor: "red",
+                borderColor: "red",
+                pointBackgroundColor: "red",
+                pointBorderColor: "#fff",
+                data: [10, 8, 4, 3, 0, 4, 8, 9, 8,5,3,2,0]
+            },
+            
             {
                 label: "TELKOM",
                 backgroundColor: "skyblue",
@@ -44,6 +46,7 @@ function NetworkChartLine() {
                 pointBorderColor: "#fff",
                 data: [3, 2, 2, 3, 4, 5, 3, 4, 6,8,6,5,3]
             },
+            */
             ],
         }}
         options={{

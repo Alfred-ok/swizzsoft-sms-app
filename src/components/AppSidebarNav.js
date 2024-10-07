@@ -6,8 +6,15 @@ import SimpleBar from 'simplebar-react'
 import 'simplebar-react/dist/simplebar.min.css'
 
 import { CBadge, CNavLink, CSidebarNav } from '@coreui/react'
+import AuthContext from '../Context/AuthProvider'
+//import { useContext } from 'react'
+import Cookies from 'js-cookie';
+
+
 
 export const AppSidebarNav = ({ items }) => {
+  //const { role} = useContext(AuthContext);
+  const role = Cookies.get('role')
   const navLink = (name, icon, badge, indent = false) => {
     return (
       <>
@@ -32,6 +39,8 @@ export const AppSidebarNav = ({ items }) => {
     const { component, name, badge, icon, ...rest } = item
     const Component = component
     return (
+      item.role === role || item.role === "Allmembers"?
+
       <Component as="div" key={index}>
         {rest.to || rest.href ? (
           <CNavLink {...(rest.to && { as: NavLink })} {...rest}>
@@ -41,6 +50,8 @@ export const AppSidebarNav = ({ items }) => {
           navLink(name, icon, badge, indent)
         )}
       </Component>
+
+      : null
     )
   }
 
@@ -48,18 +59,26 @@ export const AppSidebarNav = ({ items }) => {
     const { component, name, icon, items, to, ...rest } = item
     const Component = component
     return (
+      item.role === role || item.role === "Allmembers"?
       <Component compact as="div" key={index} toggler={navLink(name, icon)} {...rest}>
         {item.items?.map((item, index) =>
           item.items ? navGroup(item, index) : navItem(item, index, true),
         )}
       </Component>
+      : null
     )
   }
+
+  //Display of App side nav
 
   return (
     <CSidebarNav as={SimpleBar}>
       {items &&
-        items.map((item, index) => (item.items ? navGroup(item, index) : navItem(item, index)))}
+        items.map((item, index) => (
+            item.items ? 
+            navGroup(item, index) : 
+            navItem(item, index)          
+          ))}
     </CSidebarNav>
   )
 }

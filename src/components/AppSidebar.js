@@ -15,6 +15,10 @@ import { AppSidebarNav } from './AppSidebarNav'
 
 import { logo } from 'src/assets/brand/logo'
 import { sygnet } from 'src/assets/brand/sygnet'
+import { useContext } from 'react'
+//import AuthContext from '../Context/AuthProvider'
+import Cookies from 'js-cookie';
+
 
 // sidebar nav config
 import navigation from '../_nav'
@@ -23,6 +27,8 @@ const AppSidebar = () => {
   const dispatch = useDispatch()
   const unfoldable = useSelector((state) => state.sidebarUnfoldable)
   const sidebarShow = useSelector((state) => state.sidebarShow)
+  //const { username} = useContext(AuthContext);
+  const username = Cookies.get('username');
 
   return (
     <CSidebar
@@ -37,8 +43,7 @@ const AppSidebar = () => {
     >
       <CSidebarHeader className="border-bottom">
         <span style={{display:'flex'}}>
-          <CIcon customClassName="sidebar-brand-narrow" icon={sygnet} height={32} />
-          <h4>SwizzSoft</h4>
+          <h4>{username && username}</h4>
         </span>
         {/*
         <CSidebarBrand to="/">

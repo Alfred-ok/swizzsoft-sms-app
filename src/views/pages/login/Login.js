@@ -19,26 +19,24 @@ import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import AuthContext from '../../../Context/AuthProvider'
 import axios from 'axios'
-
+import Cookies from 'js-cookie'
 
 const Login = () => {
 
   const [loginusername, setLoginUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [token, setToken] = useState();
-  const [refreshtoken, setRefreshToken] = useState();
   
 
 
 
   const navigate = useNavigate();
-  const { setRole, setUsername} = useContext(AuthContext);
+  const { setRole, setUsername,setAuthToken} = useContext(AuthContext);
 
   const handleSubmit = async(e)=>{
     e.preventDefault()
 
     try {
-        
+   
         const response = await fetch("http://localhost:8080/auth/authenticate", {
             method: 'POST', // Specify the request method as POST
             headers: {
@@ -47,15 +45,7 @@ const Login = () => {
             },
             body: JSON.stringify({ username: loginusername, password: password}) // Convert the data to a JSON string for the body
         });
-        /*
-       const response = axios.post("http://localhost:8080/auth/authenticate",
-              JSON.stringify({ username: loginusername, password: password}),
-              {
-                headers: {"Content-Type": "application/json"},
-                withCredentials:true
-              }
-            );
-            */
+       
         // Check if the response is okay (status code 200-299)
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -69,8 +59,33 @@ const Login = () => {
         setRole(responseData.role)
         setUsername(responseData.user)
         
-        setToken(responseData.token)
-        setRefreshToken(responseData.refreshToken)
+        
+
+        setAuthToken({
+          accessToken: responseData.accessToken,
+          refreshToken: responseData.refreshToken
+        })
+
+        Cookies.set('username', responseData.user, {
+          expires: 7,
+          secure: true,
+          sameSite: 'Strict',
+          path: '/',
+        });
+        Cookies.set('role', responseData.role, {
+          expires: 7,
+          secure: true,
+          sameSite: 'Strict',
+          path: '/',
+        });
+        Cookies.set('refreshToken', responseData.accessToken, {
+          expires: 7,
+          secure: true,
+          sameSite: 'Strict',
+          path: '/',
+        });
+       
+
         
         //setSuccess(true)
         
@@ -84,26 +99,56 @@ const Login = () => {
    
     navigate('/dashboard');
   }
+
+
   return (
-    <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
+    <div className="min-vh-100 d-flex flex-row align-items-center"
+      style={{
+          backgroundImage: "url('src/assets/images/login-bg.jpg')",
+          backgroundRepeat: "no-repeat",
+          backgroundColor:"rgba(0,0,0,0.5)",
+          backgroundSize: "cover",
+          backgroundBlendMode:"multiply",
+          overflow:"hidden",
+        }}
+      >
       <CContainer>
         <CRow className="justify-content-center">
-          <CCol md={8}>
+          <CCol md={4}>
+              <h3 style={{textAlign:"center", color:"#fff", padding:"20px"}}>WAZI MOBILE</h3>
             <CCardGroup>
-              <CCard className="p-4">
+              <CCard className="p-4"  style={{ boxShadow: "0px 15px 34px 0px rgba(0,0,0,0.2)" }}>
                 <CCardBody>
 
-                  <CForm onSubmit={handleSubmit} >
-                    <h1>Login</h1>
-                    <p className="text-body-secondary">Sign In to your account</p>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupText>
+                  <CForm onSubmit={handleSubmit} style={{ textAlign: "center" }} >
+                    <h1 style={{ marginTop: "10px" }}>Login</h1>
+                    <p className="text-body-secondary" style={{ marginTop: "10px" }}>Sign In to your account</p>
+                    <CInputGroup className="mb-3" style={{ marginTop: "20px" }}>
+                      <CInputGroupText
+                        style={{
+                        borderColor: "rgb(71, 71, 212)",
+                        backgroundColor: "rgb(71, 71, 212)",
+                        color: "#fff",
+                      }}
+                      >
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Username" autoComplete="username" value={loginusername} onChange={(e)=>setLoginUsername(e.target.value)} required/>
+                      <CFormInput 
+                        placeholder="Username" 
+                        autoComplete="username" 
+                        value={loginusername} 
+                        onChange={(e)=>setLoginUsername(e.target.value)}
+                        style={{ borderColor: "rgb(71, 71, 212)" }} 
+                        required/>
                     </CInputGroup>
                     <CInputGroup className="mb-4">
-                      <CInputGroupText>
+                      <CInputGroupText
+                        style={{
+                        borderColor: "rgb(71, 71, 212)",
+                        backgroundColor: "rgb(71, 71, 212)",
+                        color: "#fff",
+                      }}
+                      >
                         <CIcon icon={cilLockLocked} />
                       </CInputGroupText>
                       <CFormInput
@@ -113,18 +158,19 @@ const Login = () => {
                         value={password}
                         onChange={(e)=>setPassword(e.target.value)}
                         required
+                        style={{ borderColor: "rgb(71, 71, 212)" }}
                       />
                     </CInputGroup>
 
 
                     <CRow>
-                      <CCol xs={6}>
-                        <CButton color="primary" className="px-4" type="submit">
+                      <CCol xs={12} style={{ marginTop: "15px" }}>
+                        <CButton color="primary" className="px-4" type="submit"  style={{ width: "100%" }}>
                           Login
                         </CButton>
                       </CCol>
 
-                      <CCol xs={6} className="text-right">
+                      <CCol xs={12} className="text-right" style={{ marginTop: "15px" }}>
                         <CButton color="link" className="px-0">
                           Forgot password?
                         </CButton>
@@ -138,22 +184,7 @@ const Login = () => {
 
 
 
-              <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
-                <CCardBody className="text-center">
-                  <div>
-                    <h2>Sign up</h2>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                      tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>
-                        Register Now!
-                      </CButton>
-                    </Link>
-                  </div>
-                </CCardBody>
-              </CCard>
+             
             </CCardGroup>
           </CCol>
         </CRow>
