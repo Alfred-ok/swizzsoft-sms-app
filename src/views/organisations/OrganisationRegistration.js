@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { CButton, CCard, CCardBody, CCardHeader, CCardTitle, CCol, CForm, CFormInput, CFormLabel, CFormTextarea, CImage, CModal, CModalBody, CModalFooter, CModalHeader, CRow } from '@coreui/react'
+import { CButton, CCard, CCardBody, CCardHeader, CCardTitle, CCol, CForm, CFormInput, CFormLabel, CFormTextarea, CImage, CModal, CModalBody, CModalFooter, CModalHeader, CRow, CSpinner } from '@coreui/react'
 import { useNavigate } from 'react-router-dom';
 import organisationIcon from 'src/assets/images/icons8-organization-96.png'
 import errorIcon from 'src/assets/images/icons8-error.png'
@@ -8,8 +8,8 @@ function OrganisationRegistration() {
     const [org_name, setOrg_Name] = useState();
 
     const [org_code, setOrg_Code] = useState();
-    const [mbcode, setMbcode] = useState();
-    const [token, setToken] = useState();
+    //const [mbcode, setMbcode] = useState();
+    const [clientId, setClientId] = useState();
 
     const [sms_Cost, setSms_Cost] = useState();
     const [accessKey, setAccessKey] = useState();
@@ -30,13 +30,13 @@ function OrganisationRegistration() {
     const regexPatterns = {
         org_name: /^[A-Za-z\s]+$/, // Only letters and spaces
         org_code: /^[A-Za-z0-9_-]+$/, // Alphanumeric, underscore, hyphen
-        mbcode: /^[A-Za-z0-9]+$/, // Alphanumeric only
+       // mbcode: /^[A-Za-z0-9]+$/, // Alphanumeric only
         url: /^[A-Za-z\s]+$/, // URL validation
         accessKey: /^[A-Za-z0-9_-]+$/, // Alphanumeric, underscore, hyphen
         apiKey: /^[A-Za-z0-9_-]+$/, // Alphanumeric, underscore, hyphen
         groupID: /^[A-Za-z0-9_-]+$/, // Alphanumeric, underscore, hyphen
         sms_Cost: /^\d+(\.\d{1,2})?$/, // Numeric with up to two decimals
-        token: /^[A-Za-z0-9_-]+$/, // Alphanumeric, underscore, hyphen
+        clientId: /^[A-Za-z0-9]+$/, // Alphanumeric only
     };
 
 
@@ -59,18 +59,20 @@ function OrganisationRegistration() {
         if (
             validateInput("org_name", org_name) &&
             validateInput("org_code", org_code) &&
-            validateInput("mbcode", mbcode) &&
+           // validateInput("mbcode", mbcode) &&
             validateInput("url", url) &&
             validateInput("accessKey", accessKey) &&
             validateInput("apiKey", apiKey) &&
             validateInput("groupID", groupID) &&
             validateInput("sms_Cost", sms_Cost) &&
-            validateInput("token", token)
+           validateInput("clientId", clientId)
         ) {
 
             setSuccessUpdate(true)
     
             try {
+
+               
         
                 const response = await fetch("http://localhost:8080/registerOrganisation", {
                     method: 'POST', // Specify the request method as POST
@@ -81,26 +83,30 @@ function OrganisationRegistration() {
                     body: JSON.stringify({ 
                         org_Name: org_name,
                         org_Code:org_code,
-                        mBCode:mbcode, 
+                        mBCode:org_code, 
                         url:url,
                         smsCost: sms_Cost,
                         accessKey: accessKey,
                         apiKey: apiKey,
                         groupID: groupID,
-                        token:token
+                       // token:token,
+                        clientId:clientId
                         
 
                     }) // Convert the data to a JSON string for the body
                 });
 
-                console.log(response.json());
+                
             
                 // Check if the response is okay (status code 200-299)
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                     
-                
+                 // Parse the JSON response
+                const responseData = response.json();
+
+                console.log(responseData)
                 //setSuccess(true)
                 
             // setShowdashboard(true)
@@ -110,7 +116,7 @@ function OrganisationRegistration() {
             // On successful submission, navigate to the next page
             navigate('/organisation');
         } catch (error) {
-            setModalMessage('There was a problem with the fetch operation.');
+            setModalMessage('There was a problem with the fetch operation or Registration failed.');
             setModalVisible(true);
             console.error('There was a problem with the fetch operation:', error);
         }
@@ -151,7 +157,7 @@ function OrganisationRegistration() {
                         <div className="mb-3">
                         <CFormLabel htmlFor="exampleFormControlInput1">Organisation Code</CFormLabel>
                         <CFormInput
-                            type="text"
+                            type="number"
                             id="exampleFormControlInput1"
                             placeholder="Enter Organisation Code"
                             style={{ borderColor: org_code ? validateInput("org_code", org_code) ? "rgba(71, 71, 212,0.6)" : "red" : "rgba(71, 71, 212,0.6)" }}
@@ -218,7 +224,7 @@ function OrganisationRegistration() {
                         <div className="mb-3">
                         <CFormLabel htmlFor="exampleFormControlInput1">Group Id</CFormLabel>
                         <CFormInput
-                            type="text"
+                            type="number"
                             id="exampleFormControlInput1"
                             placeholder="Enter Group Id"
                             style={{ borderColor: groupID ? validateInput("groupID", groupID) ? "rgba(71, 71, 212,0.6)" : "red" : "rgba(71, 71, 212,0.6)" }}
@@ -226,27 +232,17 @@ function OrganisationRegistration() {
                         />
                         { groupID ? validateInput("groupID", groupID)?<span></span>:<span style={{marginLeft:"10px", color:"red"}}>Incorrect</span>: <span></span>}
                         </div>
+                       
                         <div className="mb-3">
-                        <CFormLabel htmlFor="exampleFormControlInput1">MBcode</CFormLabel>
+                        <CFormLabel htmlFor="exampleFormControlInput1">Client Id</CFormLabel>
                         <CFormInput
                             type="text"
                             id="exampleFormControlInput1"
-                            placeholder="Enter MBcode"
-                            style={{ borderColor: mbcode ? validateInput("mbcode", mbcode) ? "rgba(71, 71, 212,0.6)" : "red" : "rgba(71, 71, 212,0.6)" }}
-                            onChange={(e)=>setMbcode(e.target.value)}
+                            placeholder="Enter ClientId"
+                            style={{ borderColor: clientId ? validateInput("clientId", clientId) ? "rgba(71, 71, 212,0.6)" : "red" : "rgba(71, 71, 212,0.6)" }}
+                            onChange={(e)=>setClientId(e.target.value)}
                         />
-                        { mbcode ? validateInput("mbcode", mbcode)?<span></span>:<span style={{marginLeft:"10px", color:"red"}}>Incorrect</span>: <span></span>}
-                        </div>
-                        <div className="mb-3">
-                        <CFormLabel htmlFor="exampleFormControlInput1">Token</CFormLabel>
-                        <CFormInput
-                            type="text"
-                            id="exampleFormControlInput1"
-                            placeholder="Enter Token"
-                            style={{ borderColor: token ? validateInput("token", token) ? "rgba(71, 71, 212,0.6)" : "red" : "rgba(71, 71, 212,0.6)" }}
-                            onChange={(e)=>setToken(e.target.value)}
-                        />
-                        { token? validateInput("token", token)?<span></span>:<span style={{marginLeft:"10px", color:"red"}}>Incorrect</span>: <span></span>}
+                        { clientId? validateInput("clientId", clientId)?<span></span>:<span style={{marginLeft:"10px", color:"red"}}>Incorrect</span>: <span></span>}
                         </div>
                         </CCol>
                     </CRow>   

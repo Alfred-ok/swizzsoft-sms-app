@@ -207,46 +207,21 @@ const _nav = [
 
 
 {
-  component: CNavGroup,
-  name: 'Organisation',
+  component: CNavItem,
+  name: 'Organisations',
   to: '/organisation',
   icon: <CIcon icon={cilBriefcase} customClassName="nav-icon" />,
   role: 'Admin',
-  items: [
-    {
-      component: CNavItem,
-      name: 'organisations',
-      to: '/organisation',
-      role: 'Admin',
-    },
-    {
-      component: CNavItem,
-      name: 'Register Organisation',
-      to: '/organistion-registeration',
-      role: 'Admin',
-    },
-  ],
+  
 },
+
+
 {
-  component: CNavGroup,
-  name: 'User',
-  to: '/',
+  component: CNavItem,
+  name: 'Users',
+  to: '/user',
   icon: <CIcon icon={ cilPeople} customClassName="nav-icon" />,
   role: 'Admin',
-  items: [
-    {
-      component: CNavItem,
-      name: 'Users',
-      to: '/user',
-      role: 'Admin',
-    },
-    {
-      component: CNavItem,
-      name: 'Register User',
-      to: '/user-registration',
-      role: 'Admin',
-    },
-  ],
 },
 
 

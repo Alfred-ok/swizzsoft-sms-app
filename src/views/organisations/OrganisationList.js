@@ -18,8 +18,8 @@ function OrganisationList() {
         id:"",
         orgName:"",
         smsCost:"",
-        accessKey: "",
-        apiKey: "",
+        //accessKey: "",
+        //apiKey: "",
         groupID: "",
       }
     )
@@ -75,8 +75,8 @@ function OrganisationList() {
                 body: JSON.stringify({ 
                   org_Name: orgdatamodal.orgName, 
                   smsCost: orgdatamodal.smsCost,
-                  accessKey: orgdatamodal.accessKey,
-                  apiKey: orgdatamodal.apiKey,
+                 // accessKey: orgdatamodal.accessKey,
+                 // apiKey: orgdatamodal.apiKey,
                   groupID: orgdatamodal.groupID,
                  // mbcode:56,
                  // token: "6778",
@@ -139,8 +139,8 @@ function OrganisationList() {
                         id: data.id,
                         orgName: data.org_Name,
                         smsCost: data.smsCost,
-                        accessKey: data.accessKey,
-                        apiKey: data.apiKey,
+                       // accessKey: data.accessKey,
+                       // apiKey: data.apiKey,
                         groupID: data.groupID,
                       }
                     )
@@ -187,8 +187,8 @@ function OrganisationList() {
                         <CTableHeaderCell scope="col">Organisation Name</CTableHeaderCell>
                         <CTableHeaderCell scope="col">Sender Id</CTableHeaderCell>
                         <CTableHeaderCell scope="col">Sms Cost</CTableHeaderCell>
-                        <CTableHeaderCell scope="col" >Access Key</CTableHeaderCell>
-                        <CTableHeaderCell scope="col">Api Key</CTableHeaderCell>
+                       {/*<CTableHeaderCell scope="col" >Access Key</CTableHeaderCell>*/} 
+                        {/*<CTableHeaderCell scope="col">Api Key</CTableHeaderCell>*/} 
                         <CTableHeaderCell scope="col">Group Id</CTableHeaderCell>
                         <CTableHeaderCell scope="col"></CTableHeaderCell>
 
@@ -203,8 +203,8 @@ function OrganisationList() {
                             <CTableDataCell>{data.org_Name}</CTableDataCell>
                             <CTableDataCell>{data.url}</CTableDataCell>
                             <CTableDataCell>{data.smsCost}</CTableDataCell>
-                            <CTableDataCell>{data.accessKey.substring(0, 30)}...</CTableDataCell>
-                            <CTableDataCell>{data.apiKey.substring(0, 30)}...</CTableDataCell>
+                           {/* <CTableDataCell>{data.accessKey.substring(0, 30)}...</CTableDataCell>*/}
+                            {/*<CTableDataCell>{data.apiKey.substring(0, 30)}...</CTableDataCell>*/}
                             <CTableDataCell>{data.groupID}</CTableDataCell>
                             <CTableDataCell>
                               <CButton color="primary" onClick={() => {setVisible(!visible); setDataId(data.id); getModalDataId(data.id) }} style={{display:"flex",alignItems:"center"}}>
@@ -272,7 +272,8 @@ function OrganisationList() {
                     value={orgdatamodal.smsCost}
                 />
                 </div>
-                <div className="mb-3">
+                {/*
+                      <div className="mb-3">
                         <CFormLabel htmlFor="exampleFormControlInput1">Access Key</CFormLabel>
                         <CFormInput
                             type="text"
@@ -292,6 +293,7 @@ function OrganisationList() {
                             value={orgdatamodal.apiKey}
                         />
                         </div>
+                        */}
                         <div className="mb-3">
                         <CFormLabel htmlFor="exampleFormControlInput1">Group Id</CFormLabel>
                         <CFormInput

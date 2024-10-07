@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { CButton, CCard, CCardBody, CCardHeader, CCardTitle, CCol, CForm, CFormInput, CFormLabel, CFormTextarea, CRow, CFormSelect, CImage } from '@coreui/react'
+import { CButton, CCard, CCardBody, CCardHeader, CCardTitle, CCol, CForm, CFormInput, CFormLabel, CFormTextarea, CRow, CFormSelect, CImage, CSpinner } from '@coreui/react'
 import userRegistration from 'src/assets/images/icons8-registration-96.png'
 
 function RegisterUser() {
@@ -47,7 +47,7 @@ function RegisterUser() {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
              
-            const data = response.json().
+            //const data = response.json().
             console.log(data);
             
             //setSuccess(true)
@@ -60,7 +60,7 @@ function RegisterUser() {
         }
     
         setSuccessUpdate(false)
-        //navigate('/user');
+        navigate('/user');
       }
 
   return (

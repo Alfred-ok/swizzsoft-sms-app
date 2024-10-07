@@ -92,12 +92,14 @@ const AppHeader = () => {
             </CNavLink>
           </CNavItem>
         </CHeaderNav>
-        
+        {/*
         <CHeaderNav>
+        
           <li className="nav-item py-1">
             <div className="vr h-100 mx-2 text-body text-opacity-75"></div>
           </li>
-          {/*
+          
+
           <CDropdown variant="nav-item" placement="bottom-end">
             <CDropdownToggle caret={false}>
               {colorMode === 'dark' ? (
@@ -144,9 +146,9 @@ const AppHeader = () => {
           </li>
           
           <AppHeaderDropdown />http://localhost:8080/h2-console
-          */}
+         
         </CHeaderNav>
-        
+         */}
       </CContainer>
       <CContainer className="px-4" fluid>
         <AppBreadcrumb />
