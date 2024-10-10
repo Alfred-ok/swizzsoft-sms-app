@@ -1,9 +1,10 @@
 {
   "short_name": "CoreUI-React",
   "name": "CoreUI-React sample",
+  
   "icons": [
     {
-      "src": "./assets/img/favicon.png",
+      "src": "public/favicon.ico",
       "sizes": "100x100",
       "type": "image/png"
     }
