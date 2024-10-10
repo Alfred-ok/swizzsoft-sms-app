@@ -65,25 +65,29 @@ const _nav = [
     name: 'SMS & Campaigns',
     to: '/',
     icon: <CIcon icon={cilSpeech} customClassName="nav-icon" />,
-    role: 'USER',
+    roleCode: 'ProT_917201762349',//User == 'ProT_917201762349' },
+    role:"User",
     items: [
       {
         component: CNavItem,
         name: 'Send SMS',
         to: '/send-sms',
-        role: 'User',
+        roleCode: 'ProT_917201762349',//User == 'ProT_917201762349' },
+        role:"User"
       },
       {
         component: CNavItem,
         name: 'Send from file',
         to: '/send-from-file',
-        role: 'User',
+        roleCode: 'ProT_917201762349',//User == 'ProT_917201762349' },
+        role:"User"
       },
       {
         component: CNavItem,
         name: 'Sent Messages',
         to: '/sent-messages',
-        role: 'User',
+        roleCode: 'ProT_917201762349',//User == 'ProT_917201762349' },
+        role:"User"
       },
     ],
     
@@ -120,13 +124,15 @@ const _nav = [
     name: 'Purchases',
     to: '/base',
     icon: <CIcon icon={cilCash} customClassName="nav-icon" />,
-    role: 'User',
+    roleCode: 'ProT_917201762349',//User == 'ProT_917201762349' },
+    role:"User",
     items: [
       {
         component: CNavItem,
         name: 'Buy now',
         to: '/buy-now',
-        role: 'User',
+        roleCode: 'ProT_917201762349',//User == 'ProT_917201762349' },
+        role:"User"
       },
       /*
       {
@@ -211,7 +217,8 @@ const _nav = [
   name: 'Organisations',
   to: '/organisation',
   icon: <CIcon icon={cilBriefcase} customClassName="nav-icon" />,
-  role: 'Admin',
+  roleCode: "ProT_917201762254" ,//Admin = 'ProT_917201762254'
+  role: "Admin"
   
 },
 
@@ -221,7 +228,8 @@ const _nav = [
   name: 'Users',
   to: '/user',
   icon: <CIcon icon={ cilPeople} customClassName="nav-icon" />,
-  role: 'Admin',
+  roleCode: "ProT_917201762254" ,//Admin = 'ProT_917201762254'
+  role: "Admin"
 },
 
 

@@ -86,7 +86,7 @@ const AppHeader = () => {
         }     
           <CNavItem>
             <CNavLink href="#">
-              <CButton color="primary" onClick={()=>Cookies.remove('refreshToken', { path: '/' })}>
+              <CButton color="primary" onClick={()=>Cookies.remove('refreshToken', { path: '/' }) }>
                 <CIcon icon={cilPowerStandby} style={{marginRight:"5px"}}/>Sign out
               </CButton>
             </CNavLink>

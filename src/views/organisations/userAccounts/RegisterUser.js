@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { CButton, CCard, CCardBody, CCardHeader, CCardTitle, CCol, CForm, CFormInput, CFormLabel, CFormTextarea, CRow, CFormSelect, CImage, CSpinner } from '@coreui/react'
+import { CButton, CCard, CCardBody, CCardHeader, CCardTitle, CCol, CForm, CFormInput, CFormLabel, CFormTextarea, CRow, CFormSelect, CImage, CSpinner, CModal, CModalBody } from '@coreui/react'
 import userRegistration from 'src/assets/images/icons8-registration-96.png'
 
 function RegisterUser() {
@@ -12,10 +12,43 @@ function RegisterUser() {
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
     const [roles, setRoles] = useState();
+    const[responseMessage, setResponseMessage] = useState();
 
+    const[organisationfetch, setOrganisationfetch] = useState([]);
+
+    const [modalVisible, setModalVisible] = useState(false);
+    
     const navigate = useNavigate();
 
     const[successUpdate,setSuccessUpdate] = useState(false)
+
+//fetching organisation
+    useEffect(()=>{
+        try {
+       
+          fetch("http://localhost:8080/get_User")
+            .then((datas)=>{
+              return datas.json();
+            }).then((data)=>{
+                console.log(data);
+                setOrganisationfetch(data)
+            })
+            .catch((err)=>{
+              console.log(err)
+            })
+    
+          
+          //setSuccess(true)
+          
+      // setShowdashboard(true)
+    
+      }catch (error) {
+        // Handle any errors that occurred during the fetch
+        console.error('There was a problem with the fetch operation:', error);
+      }
+      },[])
+    
+    
 
     const handleSubmit = async(e)=>{
         e.preventDefault()
@@ -37,7 +70,8 @@ function RegisterUser() {
                         organisation: organisation,
                         userName: userName,
                         password: password,
-                        role: roles
+                        roles: roles,
+                        groupID: organisation
                     }
                 ) // Convert the data to a JSON string for the body
             });
@@ -47,8 +81,12 @@ function RegisterUser() {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
              
+            const responseData = await response.json();
             //const data = response.json().
-            console.log(data);
+            //console.log(responseData);
+            setResponseMessage(responseData.ResponseMessage)
+
+            setModalVisible(true);
             
             //setSuccess(true)
             
@@ -60,7 +98,7 @@ function RegisterUser() {
         }
     
         setSuccessUpdate(false)
-        navigate('/user');
+       // navigate('/user');
       }
 
   return (
@@ -75,7 +113,9 @@ function RegisterUser() {
                             <CImage src={userRegistration} height={32} style={{marginRight:"7px"}}/> User Registration
                         </span>
                     </CCardTitle>
+                    
                     <CForm onSubmit={handleSubmit} style={{backgroundColor:"rgba(0,0,0,0.1)", padding:"25px", borderRadius:"5px"}}>
+                        
                         <CRow>
                             <CCol>
                                 <div className="mb-3">
@@ -158,8 +198,8 @@ function RegisterUser() {
                                         required
                                         options={[
                                             'Select Role',
-                                            { label: 'Admin', value: 'Admin' },
-                                            { label: 'User', value: 'User' },
+                                            { label: 'Admin', value: 'ProT_917201762254' },
+                                            { label: 'User', value: 'ProT_917201762349' },
                                         ]}/>
                                         
                                 </div>
@@ -167,17 +207,18 @@ function RegisterUser() {
                         </CRow>
                         <CRow>
                             <CCol>
-                            <div className="mb-3">
-                                <CFormLabel htmlFor="exampleFormControlInput7">Organisation</CFormLabel>
-                                <CFormInput
-                                        type="number"
-                                        id="exampleFormControlInput7"
-                                        placeholder="Organisation"
-                                        style={{borderColor: "rgba(71, 71, 212,0.6)"}}
-                                        onChange={(e)=>setOrganisation(e.target.value)}
-                                        required
-                                    />
-                            </div>
+                                <div className="mb-3">
+                                    <CFormLabel htmlFor="exampleFormControlInput6">Organisation</CFormLabel>
+                                    <CFormSelect className="mb-3" aria-label="Small select example" style={{borderColor: "rgba(71, 71, 212,0.6)"}} value={organisation} onChange={(e)=>setOrganisation(e.target.value)} >
+                                        <option value="">Organisation</option> {/* Default option */}
+                                        {organisationfetch &&
+                                        organisationfetch.map((data, index) => (
+                                            <option key={index} value={data.organisation}>
+                                            {data.userName}
+                                            </option> 
+                                        ))}
+                                    </CFormSelect>
+                                </div>
                             </CCol>
                             <CCol>
                                 
@@ -206,6 +247,24 @@ function RegisterUser() {
             </CCol>
 
         </CRow>
+        <CModal visible={modalVisible} onClose={() => setModalVisible(false)} >   
+        {
+            responseMessage == "Successful"  ?     
+            <CModalBody style={{textAlign:"center"}}>
+                <p style={{width:"250px", margin:"20px auto", fontWeight:"bold"}}>{responseMessage}</p>
+                <CButton color="primary" onClick={() => {setModalVisible(false);navigate('/user');}} style={{color:"#fff", margin:"10px", width:"80%"}}>
+                    OK
+                </CButton>
+            </CModalBody> 
+            :
+            <CModalBody style={{textAlign:"center"}}>
+                <p style={{width:"250px", margin:"20px auto", fontWeight:"bold"}}>{responseMessage}</p>
+                <CButton color="primary" onClick={() => setModalVisible(false)} style={{color:"#fff", margin:"10px", width:"80%"}}>
+                    OK
+                </CButton>
+            </CModalBody> 
+        }
+        </CModal> 
     </>
   )
 }

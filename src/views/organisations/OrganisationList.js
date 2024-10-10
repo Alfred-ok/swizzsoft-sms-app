@@ -18,9 +18,10 @@ function OrganisationList() {
         id:"",
         orgName:"",
         smsCost:"",
-        //accessKey: "",
-        //apiKey: "",
+        accessKey: "",
+        apiKey: "",
         groupID: "",
+        clientId: ""
       }
     )
 
@@ -75,9 +76,10 @@ function OrganisationList() {
                 body: JSON.stringify({ 
                   org_Name: orgdatamodal.orgName, 
                   smsCost: orgdatamodal.smsCost,
-                 // accessKey: orgdatamodal.accessKey,
-                 // apiKey: orgdatamodal.apiKey,
+                  accessKey: orgdatamodal.accessKey,
+                  apiKey: orgdatamodal.apiKey,
                   groupID: orgdatamodal.groupID,
+                  clientId: orgdatamodal.clientId
                  // mbcode:56,
                  // token: "6778",
                  /// url: "TARAKA" don't update
@@ -139,9 +141,10 @@ function OrganisationList() {
                         id: data.id,
                         orgName: data.org_Name,
                         smsCost: data.smsCost,
-                       // accessKey: data.accessKey,
-                       // apiKey: data.apiKey,
+                        accessKey: data.accessKey,
+                        apiKey: data.apiKey,
                         groupID: data.groupID,
+                        clientId: data.clientId
                       }
                     )
                     
@@ -207,7 +210,7 @@ function OrganisationList() {
                             {/*<CTableDataCell>{data.apiKey.substring(0, 30)}...</CTableDataCell>*/}
                             <CTableDataCell>{data.groupID}</CTableDataCell>
                             <CTableDataCell>
-                              <CButton color="primary" onClick={() => {setVisible(!visible); setDataId(data.id); getModalDataId(data.id) }} style={{display:"flex",alignItems:"center"}}>
+                              <CButton color="primary" onClick={() => {setVisible(!visible); setDataId(data.id); getModalDataId(data.id) }} style={{display:"flex",alignItems:"center", margin:"0 auto"}}>
                                 <CIcon icon={cilSync} style={{marginRight:"5px"}}/> Update
                               </CButton>
                             </CTableDataCell>
@@ -272,7 +275,6 @@ function OrganisationList() {
                     value={orgdatamodal.smsCost}
                 />
                 </div>
-                {/*
                       <div className="mb-3">
                         <CFormLabel htmlFor="exampleFormControlInput1">Access Key</CFormLabel>
                         <CFormInput
@@ -293,7 +295,6 @@ function OrganisationList() {
                             value={orgdatamodal.apiKey}
                         />
                         </div>
-                        */}
                         <div className="mb-3">
                         <CFormLabel htmlFor="exampleFormControlInput1">Group Id</CFormLabel>
                         <CFormInput
@@ -302,6 +303,16 @@ function OrganisationList() {
                             placeholder="Enter Group Id" 
                             onChange={(e)=>setOrgdataModal({...orgdatamodal,groupID : e.target.value})}
                             value={orgdatamodal.groupID}
+                        />
+                        </div>
+                        <div className="mb-3">
+                        <CFormLabel htmlFor="exampleFormControlInput1">Client Id</CFormLabel>
+                        <CFormInput
+                            type="text"
+                            id="exampleFormControlInput1"
+                            placeholder="Enter Client Id" 
+                            onChange={(e)=>setOrgdataModal({...orgdatamodal,clientId : e.target.value})}
+                            value={orgdatamodal.clientId}clientId
                         />
                         </div>
 

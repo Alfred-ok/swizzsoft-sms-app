@@ -13,27 +13,34 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
-  CFormSelect
+  CFormSelect,
+  CImage,
+  CAlert,
+  CSpinner
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import AuthContext from '../../../Context/AuthProvider'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import errorIcon from 'src/assets/images/icons8-error.png'
 
 const Login = () => {
 
   const [loginusername, setLoginUsername] = useState('');
   const [password, setPassword] = useState('');
-  
+  const responseMessage = Cookies.get('responseMessage');
 
-
+  const[successUpdate,setSuccessUpdate] = useState(false);
 
   const navigate = useNavigate();
   const { setRole, setUsername,setAuthToken} = useContext(AuthContext);
 
   const handleSubmit = async(e)=>{
     e.preventDefault()
+
+    setSuccessUpdate(true)
+    
 
     try {
    
@@ -56,9 +63,12 @@ const Login = () => {
         //return responseData; // Return the parsed JSON
         console.log(responseData)
 
+        setSuccessUpdate(false);
+
+
         setRole(responseData.role)
         setUsername(responseData.user)
-        
+       // setResponseMessage(responseData.responseMessage);
         
 
         setAuthToken({
@@ -83,10 +93,17 @@ const Login = () => {
           secure: true,
           sameSite: 'Strict',
           path: '/',
+        });Cookies.set('responseMessage', responseData.responseMessage, {
+          expires: 7,
+          secure: true,
+          sameSite: 'Strict',
+          path: '/',
         });
+
        
 
         
+
         //setSuccess(true)
         
     // setShowdashboard(true)
@@ -94,10 +111,13 @@ const Login = () => {
     }catch (error) {
       // Handle any errors that occurred during the fetch
       console.error('There was a problem with the fetch operation:', error);
+
+      setSuccessUpdate(false);
     }
 
    
-    navigate('/dashboard');
+      navigate('/dashboard');
+    
   }
 
 
@@ -120,6 +140,16 @@ const Login = () => {
               <CCard className="p-4"  style={{ boxShadow: "0px 15px 34px 0px rgba(0,0,0,0.2)" }}>
                 <CCardBody>
 
+                    {
+                      responseMessage == "Login Failed" ?
+                      <CAlert color="danger" style={{textAlign:"center"}}>
+                        <CImage src={errorIcon} height={50} />
+                        <h5 style={{margin :"4px 0px"}}>{responseMessage}</h5> 
+                        <p style={{margin :"0"}}>Wrong username or password. Try again</p>
+                      </CAlert>
+                      :
+                        null
+                    }
                   <CForm onSubmit={handleSubmit} style={{ textAlign: "center" }} >
                     <h1 style={{ marginTop: "10px" }}>Login</h1>
                     <p className="text-body-secondary" style={{ marginTop: "10px" }}>Sign In to your account</p>
@@ -165,9 +195,17 @@ const Login = () => {
 
                     <CRow>
                       <CCol xs={12} style={{ marginTop: "15px" }}>
+                      {
+                        successUpdate ?
+                        <CButton color="success" type="submit" className="px-4"  disabled style={{width:"100%"}}>
+                            <CSpinner as="span" size="sm"/> authenticating ...
+                        </CButton>
+                        :
                         <CButton color="primary" className="px-4" type="submit"  style={{ width: "100%" }}>
                           Login
                         </CButton>
+                      }
+                        
                       </CCol>
 
                       <CCol xs={12} className="text-right" style={{ marginTop: "15px" }}>
