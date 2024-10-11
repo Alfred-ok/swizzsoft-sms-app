@@ -43,6 +43,8 @@ const Login = () => {
     
 
     try {
+
+      console.log("Base URL:", import.meta.env.VITE_BASE_URL);
    
         const response = await fetch(`${import.meta.env.VITE_BASE_URL}auth/authenticate`, {
             method: 'POST', // Specify the request method as POST
