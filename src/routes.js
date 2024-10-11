@@ -2,8 +2,6 @@ import { element } from 'prop-types'
 import React from 'react'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
-const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
-const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 
 
 
@@ -26,7 +24,7 @@ const routes = [
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
 
   //users
-  
+
   { path:'/send-sms', name:'Send SMS', element: SendSms},
   { path:'/send-from-file', name:'Send from file',element:SendFromFile},
   { path:'/sent-messages', name:'Sent Messages',element:SentMessages},
@@ -40,12 +38,7 @@ const routes = [
   { path:'/user', name:'User', element: User},
   { path:'/user-registration', name:'Register User', element: RegisterUser},
  
-  {/** 
-  { path: '/theme', name: 'Theme', element: Colors, exact: true },
-  { path: '/theme/colors', name: 'Colors', element: Colors },
-  { path: '/theme/typography', name: 'Typography', element: Typography },
-
-  */}
+  
 
 
 ]
