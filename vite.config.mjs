@@ -12,6 +12,12 @@ export default defineConfig(() => {
         output: {
           manualChunks(id) {
             if (id.includes('node_modules')) {
+              if (id.includes('react')) {
+                return 'react-vendors';
+              }
+              if (id.includes('some-other-large-lib')) {
+                return 'some-other-vendor';
+              }
               return 'vendor';
             }
           },
