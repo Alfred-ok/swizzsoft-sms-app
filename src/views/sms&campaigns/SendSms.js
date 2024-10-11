@@ -13,7 +13,7 @@ function SendSms() {
     
         try {
        
-            const response = await fetch("http://localhost:8080/messagein", {
+            const response = await fetch(`${import.meta.env.VITE_BASE_URL}messagein`, {
                 method: 'POST', // Specify the request method as POST
                 headers: {
                     'Content-Type': 'application/json', // Set the content type to JSON

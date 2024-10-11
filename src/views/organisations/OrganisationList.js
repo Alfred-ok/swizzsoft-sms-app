@@ -30,7 +30,7 @@ function OrganisationList() {
       useEffect(()=>{
         try {
        
-          fetch("http://localhost:8080/get_organisation")
+          fetch(`${import.meta.env.VITE_BASE_URL}get_organisation`)
             .then((datas)=>{
               return datas.json();
             }).then((data)=>{
@@ -67,7 +67,7 @@ function OrganisationList() {
     
         try {
             
-            const response = await fetch(`http://localhost:8080/update-organisation/${dataid}`, {
+            const response = await fetch(`${import.meta.env.VITE_BASE_URL}update-organisation/${dataid}`, {
                 method: 'PUT', // Specify the request method as POST
                 headers: {
                     'Content-Type': 'application/json', // Set the content type to JSON
@@ -125,7 +125,7 @@ function OrganisationList() {
               
               
 
-              fetch(`http://localhost:8080/get_organisation/${dataid}`)
+              fetch(`${import.meta.env.VITE_BASE_URL}get_organisation/${dataid}`)
                 .then((datas)=>{
                   return datas.json();
                 }).then((data)=>{

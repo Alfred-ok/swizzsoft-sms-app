@@ -26,7 +26,7 @@ function RegisterUser() {
     useEffect(()=>{
         try {
        
-          fetch("http://localhost:8080/get_User")
+          fetch(`${import.meta.env.VITE_BASE_URL}get_User`)
             .then((datas)=>{
               return datas.json();
             }).then((data)=>{
@@ -57,7 +57,7 @@ function RegisterUser() {
     
         try {
        
-            const response = await fetch("http://localhost:8080/auth/register", {
+            const response = await fetch(`${import.meta.env.VITE_BASE_URL}auth/register`, {
                 method: 'POST', // Specify the request method as POST
                 headers: {
                     'Content-Type': 'application/json', // Set the content type to JSON

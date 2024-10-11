@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react'
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import {
   CButton,
@@ -21,7 +21,7 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import AuthContext from '../../../Context/AuthProvider'
-import axios from 'axios'
+//import axios from 'axios'
 import Cookies from 'js-cookie'
 import errorIcon from 'src/assets/images/icons8-error.png'
 
@@ -44,7 +44,7 @@ const Login = () => {
 
     try {
    
-        const response = await fetch("http://localhost:8080/auth/authenticate", {
+        const response = await fetch(`${import.meta.env.VITE_BASE_URL}auth/authenticate`, {
             method: 'POST', // Specify the request method as POST
             headers: {
                 'Content-Type': 'application/json', // Set the content type to JSON
@@ -119,7 +119,6 @@ const Login = () => {
       navigate('/dashboard');
     
   }
-
 
   return (
     <div className="min-vh-100 d-flex flex-row align-items-center"

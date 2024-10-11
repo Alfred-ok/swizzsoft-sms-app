@@ -14,7 +14,7 @@ function UserList() {
   useEffect(()=>{
     try {
    
-      fetch("http://localhost:8080/get_User")
+      fetch(`${import.meta.env.VITE_BASE_URL}get_User`)
         .then((datas)=>{
           return datas.json();
         }).then((data)=>{

@@ -75,7 +75,7 @@ function OrganisationRegistration() {
 
                
         
-                const response = await fetch("http://localhost:8080/registerOrganisation", {
+                const response = await fetch(`${import.meta.env.VITE_BASE_URL}registerOrganisation`, {
                     method: 'POST', // Specify the request method as POST
                     headers: {
                         'Content-Type': 'application/json', // Set the content type to JSON
