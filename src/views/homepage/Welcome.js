@@ -1,9 +1,9 @@
 import React from 'react'
-import Aboutmessaging from './Aboutmessaging'
-import Servicemessaging from './Servicemessaging'
-import Contact from './Contact'
-import WelcomeNav from './WelcomeNav'
-import WelcomeHeroSection from './WelcomeHeroSection'
+const Aboutmessaging= React.lazy(()=>import('./Aboutmessaging'))
+const Servicemessaging= React.lazy(()=>import('./Servicemessaging'))
+const Contact = React.lazy(()=>import('./Contact'))
+const WelcomeNav = React.lazy(()=>import('./WelcomeNav'))
+const WelcomeHeroSection = React.lazy(()=>import('./WelcomeHeroSection'))
 
 
 function Welcome() {
