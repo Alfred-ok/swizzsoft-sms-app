@@ -44,9 +44,11 @@ const Login = () => {
 
     try {
 
-      console.log("Base URL:", import.meta.env.VITE_BASE_URL);
+      
+      const BaseUrl = import.meta.env.VITE_BASE_URL
+      console.log( "Base URL:", BaseUrl);
    
-        const response = await fetch(`${import.meta.env.VITE_BASE_URL}auth/authenticate`, {
+        const response = await fetch(`${BaseUrl}auth/authenticate`, {
             method: 'POST', // Specify the request method as POST
             headers: {
                 'Content-Type': 'application/json', // Set the content type to JSON
