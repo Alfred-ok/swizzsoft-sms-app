@@ -47,8 +47,8 @@ import {
 
 import MainChart from './MainChart'
 
-//import NetworkChartLine from './NetworkChartLine'
-//import NetworkPieChart from './NetworkPieChart'
+import NetworkChartLine from './NetworkChartLine'
+import NetworkPieChart from './NetworkPieChart'
 //import { auto } from '@popperjs/core'
 //import DeliveryReportBar from './DeliveryReportBar'
 //import DeliveryReportPieChart from './DeliveryReportPieChart'

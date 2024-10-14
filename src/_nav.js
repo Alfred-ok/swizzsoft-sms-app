@@ -120,28 +120,13 @@ const _nav = [
   //purchases
 
   {
-    component: CNavGroup,
-    name: 'Purchases',
-    to: '/base',
+    component: CNavItem,
+    name: 'Buy Sms',
+    to: '/buy-now',
     icon: <CIcon icon={cilCash} customClassName="nav-icon" />,
     roleCode: 'ProT_917201762349',//User == 'ProT_917201762349' },
     role:"User",
-    items: [
-      {
-        component: CNavItem,
-        name: 'Buy now',
-        to: '/buy-now',
-        roleCode: 'ProT_917201762349',//User == 'ProT_917201762349' },
-        role:"User"
-      },
-      /*
-      {
-        component: CNavItem,
-        name: 'All Transactions',
-        to: '/base/breadcrumbs',
-      },
-      */
-    ],
+      
   },
 
 

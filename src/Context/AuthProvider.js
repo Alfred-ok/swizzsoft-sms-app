@@ -10,11 +10,15 @@ export const AuthProvider = ({ children }) => {
   //const [success, setSuccess] = useState(false)
   const [username, setUsername] = useState('')
   const [authToken, setAuthToken] = useState({})
+  const [purchaseSmsUnit, setPurchaseSmsUnit] = useState({
+    price:"",
+    quantity:""
+  })
 
   
 
   return (
-    <AuthContext.Provider value={{role, setRole, username, setUsername, authToken, setAuthToken}}>
+    <AuthContext.Provider value={{role, setRole, username, setUsername, authToken, setAuthToken, purchaseSmsUnit, setPurchaseSmsUnit}}>
         {children}
     </AuthContext.Provider>
   )

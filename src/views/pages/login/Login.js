@@ -24,6 +24,7 @@ import AuthContext from '../../../Context/AuthProvider'
 //import axios from 'axios'
 import Cookies from 'js-cookie'
 import errorIcon from 'src/assets/images/icons8-error.png'
+const ParticlesComponent = React.lazy(()=>import('./ParticlesComponent'))
 
 const Login = () => {
 
@@ -125,7 +126,8 @@ const Login = () => {
   }
 
   return (
-    <div className="min-vh-100 d-flex flex-row align-items-center"
+    <ParticlesComponent>
+    <div
       style={{
           backgroundImage: "url('src/assets/images/login-bg.jpg')",
           backgroundRepeat: "no-repeat",
@@ -135,6 +137,7 @@ const Login = () => {
           overflow:"hidden",
         }}
       >
+      
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md={4}>
@@ -230,7 +233,9 @@ const Login = () => {
           </CCol>
         </CRow>
       </CContainer>
+      
     </div>
+    </ParticlesComponent>
   )
 }
 
