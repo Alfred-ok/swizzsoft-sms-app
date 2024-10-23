@@ -22,6 +22,8 @@ const User = React.lazy(()=>import('./views/organisations/userAccounts/UserList'
 const RegisterUser = React.lazy(()=>import('./views/organisations/userAccounts/RegisterUser'))
 
 
+
+
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
@@ -43,7 +45,6 @@ const routes = [
   { path:'/user-registration', name:'Register User', element: RegisterUser},
  
   
-
 
 ]
 

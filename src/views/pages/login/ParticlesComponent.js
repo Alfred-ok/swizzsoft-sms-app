@@ -110,11 +110,12 @@ const ParticlesComponent = ({children}) => {
     <div>
       <div id="particles-js" ref={particlesRef} style={particlesStyle} >
       </div>
-      <div>{children}</div>
       <div className="count-particles">
         <span className="js-count-particles" ref={countParticlesRef}>--</span>
+        
       </div>
       <div id="stats" ref={statsRef}></div>
+      {children}
     </div>
   );
 };

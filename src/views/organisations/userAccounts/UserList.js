@@ -1,17 +1,46 @@
 import React, { useState, useEffect } from 'react'
-import { CButton, CCard, CCardBody, CCardTitle, CCol, CForm, CFormInput, CFormLabel, CImage, CRow, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
+import { CButton, CCard, CCardBody, CCardTitle, CCol, CForm, CFormInput, CFormLabel, CImage, CInputGroup, CInputGroupText, CPagination, CPaginationItem, CRow, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
 import { useNavigate } from 'react-router-dom';
 import CIcon from '@coreui/icons-react';
 import { cilPlus, cilUser } from '@coreui/icons';
 import user from 'src/assets/images/icons8-user-96.png'
+import 'ldrs/waveform'
 
 function UserList() {
 
   const [appNetUser, setAppNetUser ] = useState();
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
+
+  const [filteredData, setFilteredData] = useState([]); // Store filtered data
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+    
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+
+  const [searchTerm, setSearchTerm] = useState(''); // Search term
+
+
+  // Search/filter function
+  const handleSearch = (event) => {
+    const searchValue = event.target.value.toLowerCase();
+    setSearchTerm(searchValue);
+
+    const filteredResults = appNetUser.filter((user) =>
+      user.names.toLowerCase().includes(searchValue)
+    );
+    setFilteredData(filteredResults);
+  };
+
+
+
 
   useEffect(()=>{
+
+    setLoading(false)
     try {
    
       fetch(`${import.meta.env.VITE_BASE_URL}get_User`)
@@ -20,9 +49,12 @@ function UserList() {
         }).then((data)=>{
             console.log(data);
             setAppNetUser(data)
+            setFilteredData(data); // Initialize filtered data
+            setLoading(true)
         })
         .catch((err)=>{
           console.log(err)
+          setLoading(true)
         })
 
       
@@ -57,7 +89,25 @@ function UserList() {
                   </CButton> 
                 </CCardTitle>
                   
-
+                {
+                      loading && loading ?
+                      (
+                    <>
+                     {/* Search Input */}
+                  
+                     <CForm className="mb-3">
+                    <CInputGroup className="mb-3" style={{width:"60%"}}>
+                      <CInputGroupText id="basic-addon1" color='dark' style={{color: "#fff",backgroundColor: "rgb(71, 71, 212)"}}>Search</CInputGroupText>
+                      <CFormInput
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search by Organisation Name"
+                        value={searchTerm}
+                        onChange={handleSearch} // Call the handleSearch function when typing
+                        style={{borderColor: "rgb(71, 71, 212)"}}
+                      />
+                      </CInputGroup>
+                    </CForm>  
                   <CTable responsive small stripedColumns bordered>
                     <CTableHead>
                       <CTableRow color='dark' style={{textAlign:'center'}}>
@@ -70,8 +120,8 @@ function UserList() {
                         <CTableHeaderCell scope="col">groupID</CTableHeaderCell>
                       </CTableRow>
                     </CTableHead>
-                    {appNetUser && 
-                      appNetUser.map((data, idx)=>(
+                    {currentItems && 
+                      currentItems.map((data, idx)=>(
                           <CTableBody>
                           <CTableRow>
                             <CTableHeaderCell scope="row">{idx+1}</CTableHeaderCell>
@@ -87,6 +137,34 @@ function UserList() {
                       )) 
                     } 
                   </CTable>
+                  <CPagination aria-label="Page navigation example">
+
+                    <CPaginationItem onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+                      Previous
+                    </CPaginationItem>
+                    
+                    {[...Array(Math.ceil(appNetUser.length / itemsPerPage))].map((_, idx) => (
+                      <CPaginationItem key={idx + 1} active={idx + 1 === currentPage} onClick={() => setCurrentPage(idx + 1)}>
+                        {idx + 1}
+                      </CPaginationItem>
+                    ))}
+                    
+                    <CPaginationItem onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === Math.ceil(appNetUser.length / itemsPerPage)}>
+                      Next
+                    </CPaginationItem>
+
+                  </CPagination>
+                  </>
+                    )
+                   :
+                   (
+                    <div style={{display:"flex", justifyContent:"center", alignItems:"end", color:"black", width:"100%", marginTop:'30px'}}>
+                             
+                            <l-waveform size="35" stroke="3.5" speed="1" color="black" ></l-waveform>
+                            <h3 style={{marginLeft:"20px"}}>Loading</h3> 
+                    </div>
+                   )
+                }
                   
             </CCardBody>
         </CCard>

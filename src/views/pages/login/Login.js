@@ -58,10 +58,13 @@ const Login = () => {
             body: JSON.stringify({ username: loginusername, password: password}) // Convert the data to a JSON string for the body
         });
        
+
         // Check if the response is okay (status code 200-299)
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
+
+        console.log(response)
      
         // Parse the JSON response
         const responseData = await response.json();
@@ -103,6 +106,11 @@ const Login = () => {
           secure: true,
           sameSite: 'Strict',
           path: '/',
+        });Cookies.set('groupId', responseData.groupId, {
+          expires: 7,
+          secure: true,
+          sameSite: 'Strict',
+          path: '/',
         });
 
        
@@ -128,6 +136,7 @@ const Login = () => {
   return (
     <ParticlesComponent>
     <div
+    /*
       style={{
           backgroundImage: "url('src/assets/images/login-bg.jpg')",
           backgroundRepeat: "no-repeat",
@@ -135,14 +144,13 @@ const Login = () => {
           backgroundSize: "cover",
           backgroundBlendMode:"multiply",
           overflow:"hidden",
-        }}
+        }}*/
       >
       
-      <CContainer>
+      <CContainer> 
         <CRow className="justify-content-center">
           <CCol md={4}>
-              <h3 style={{textAlign:"center", color:"#fff", padding:"20px"}}>WAZI MOBILE</h3>
-            <CCardGroup>
+              <CCard variant='solid' style={{backgroundColor:"transparent", border:"none"}} ><h3 style={{textAlign:"center", color:"#fff", padding:"20px"}}>WAZI MOBILE</h3></CCard>
               <CCard className="p-4"  style={{ boxShadow: "0px 15px 34px 0px rgba(0,0,0,0.2)" }}>
                 <CCardBody>
 
@@ -225,11 +233,6 @@ const Login = () => {
 
                 </CCardBody>
               </CCard>
-
-
-
-             
-            </CCardGroup>
           </CCol>
         </CRow>
       </CContainer>

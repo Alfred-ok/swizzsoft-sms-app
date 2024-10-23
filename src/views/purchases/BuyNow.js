@@ -5,8 +5,11 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import AuthContext from '../../Context/AuthProvider'
+import Cookies from 'js-cookie';
 
 function BuyNow() {
+
+  const groupID = Cookies.get('groupId');
 
   const[organisationfetch, setOrganisationfetch] = useState([]);
   const [getOrganisationById, setGetOrganisationById] = useState();
@@ -16,12 +19,13 @@ function BuyNow() {
   const {purchaseSmsUnit, setPurchaseSmsUnit} = useContext(AuthContext);
   const navigate = useNavigate();
 
-  //fetching all data organisation
+
   useEffect(()=>{
     try {
    
-      fetch(`${import.meta.env.VITE_BASE_URL}get_organisation`)
+      fetch(`${import.meta.env.VITE_BASE_URL}org_group_id/${groupID}`)
         .then((datas)=>{
+            console.log(datas);
           return datas.json();
         }).then((data)=>{
             console.log(data);
@@ -30,11 +34,6 @@ function BuyNow() {
         .catch((err)=>{
           console.log(err)
         })
-
-      
-      //setSuccess(true)
-      
-  // setShowdashboard(true)
 
   }catch (error) {
     // Handle any errors that occurred during the fetch
@@ -125,6 +124,7 @@ function BuyNow() {
                                     {data.url}
                                     </option> 
                                 ))}
+                                
                         </CFormSelect>
                         </div>
                         <div className="mb-3">

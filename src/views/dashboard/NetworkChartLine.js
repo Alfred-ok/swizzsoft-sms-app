@@ -4,8 +4,14 @@ import { CChart } from '@coreui/react-chartjs'
 import { getStyle } from '@coreui/utils'
 
 function NetworkChartLine() {
+
+
   return (
+    
     <>
+    <div id="chart"></div>
+    {
+        
     <CChart
         style={{width: '100%'}}
         type="line" 
@@ -47,7 +53,7 @@ function NetworkChartLine() {
                 data: [3, 2, 2, 3, 4, 5, 3, 4, 6,8,6,5,3]
             },
             */
-            ],
+           ],
         }}
         options={{
             plugins: {
@@ -77,6 +83,11 @@ function NetworkChartLine() {
             },
         }}
         />
+  
+    }
+
+
+
     </>
   )
 }

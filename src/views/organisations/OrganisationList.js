@@ -1,17 +1,49 @@
 import React, { useEffect, useState } from 'react'
-import { CButton, CCard, CCardBody, CCardTitle, CCol, CForm, CFormInput, CFormLabel, CImage, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CRow, CSpinner, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
+import { CButton, CCard, CCardBody, CCardTitle, CCol, CForm, CFormInput, CFormLabel, CImage, CInputGroup, CInputGroupText, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CPagination, CPaginationItem, CRow, CSpinner, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react'
 import { Button, Modal } from '@coreui/coreui';
 import { useNavigate } from 'react-router-dom';
 import CIcon from '@coreui/icons-react'
 import { cilPlus, cilSync } from '@coreui/icons';
 import organisationIcon from 'src/assets/images/icons8-organization-96.png'
+import 'ldrs/waveform'
 
 function OrganisationList() {
 
-    const [org_data, setOrg_Data] = useState();
+    const [org_data, setOrg_Data] = useState([]);
     const [visible, setVisible] = useState(false);
     const [dataId, setDataId] = useState();
     const[successUpdate,setSuccessUpdate] = useState(false)
+
+    const [loading, setLoading] = useState(false);
+
+     //search
+     const [filteredData, setFilteredData] = useState([]); // Store filtered data
+     const [searchTerm, setSearchTerm] = useState(''); // Search term
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
+    
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+    
+
+   
+
+
+
+    // Search/filter function
+      const handleSearch = (event) => {
+        const searchValue = event.target.value.toLowerCase();
+        setSearchTerm(searchValue);
+
+        const filteredResults = org_data.filter((org) =>
+          org.org_Name.toLowerCase().includes(searchValue)
+        );
+        setFilteredData(filteredResults);
+      };
+
+    
 
     const [orgdatamodal, setOrgdataModal] = useState(
       {
@@ -28,6 +60,7 @@ function OrganisationList() {
     const navigate = useNavigate();
 
       useEffect(()=>{
+        setLoading(false)
         try {
        
           fetch(`${import.meta.env.VITE_BASE_URL}get_organisation`)
@@ -36,9 +69,12 @@ function OrganisationList() {
             }).then((data)=>{
                 console.log(data);
                 setOrg_Data(data)
+                setFilteredData(data); // Initialize filtered data
+                setLoading(true)
             })
             .catch((err)=>{
               console.log(err)
+              setLoading(true)
             })
   
           
@@ -54,6 +90,7 @@ function OrganisationList() {
 
 
      // const randomNumber = () => Math.floor(100 + Math.random() * 900);
+     
       
 
       const handleUpdate = async(e)=>{
@@ -180,8 +217,28 @@ function OrganisationList() {
                       Register New Organisation
                     </CButton>       
                 </CCardTitle>
-                  
 
+                {
+                      loading && loading ?
+                      (
+                    <>  
+                  
+                   {/* Search Input */}
+                  
+                    <CForm className="mb-3">
+                    <CInputGroup className="mb-3" style={{width:"60%"}}>
+                      <CInputGroupText id="basic-addon1" color='dark' style={{color: "#fff",backgroundColor: "rgb(71, 71, 212)"}}>Search</CInputGroupText>
+                      <CFormInput
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search by Organisation Name"
+                        value={searchTerm}
+                        onChange={handleSearch} // Call the handleSearch function when typing
+                        style={{borderColor: "rgb(71, 71, 212)"}}
+                      />
+                      </CInputGroup>
+                    </CForm>
+                      
                   <CTable responsive small stripedColumns bordered >
                     <CTableHead>
                       <CTableRow color='dark' style={{textAlign:'center'}}>
@@ -197,11 +254,11 @@ function OrganisationList() {
 
                       </CTableRow>
                     </CTableHead>
-                    {org_data && 
-                      org_data.map((data, idx)=>(
+                    {currentItems && 
+                      currentItems.map((data, idx)=>(
                           <CTableBody key={data.id}>
                           <CTableRow style={{textAlign:'center'}}>
-                            <CTableHeaderCell scope="row">{idx + 1}</CTableHeaderCell>
+                            <CTableHeaderCell scope="row">{indexOfFirstItem + idx + 1}</CTableHeaderCell>
                             <CTableDataCell>{data.org_Code}</CTableDataCell>
                             <CTableDataCell>{data.org_Name}</CTableDataCell>
                             <CTableDataCell>{data.url}</CTableDataCell>
@@ -219,7 +276,35 @@ function OrganisationList() {
                       )) 
                     } 
                   </CTable>
-                  
+                  <CPagination aria-label="Page navigation example">
+
+                    <CPaginationItem onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+                      Previous
+                    </CPaginationItem>
+                    
+                    {[...Array(Math.ceil(org_data.length / itemsPerPage))].map((_, idx) => (
+                      <CPaginationItem key={idx + 1} active={idx + 1 === currentPage} onClick={() => setCurrentPage(idx + 1)}>
+                        {idx + 1}
+                      </CPaginationItem>
+                    ))}
+                    
+                    <CPaginationItem onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === Math.ceil(org_data.length / itemsPerPage)}>
+                      Next
+                    </CPaginationItem>
+
+                  </CPagination>
+                  </>
+                    )
+                   :
+                   (
+                    <div style={{display:"flex", justifyContent:"center", alignItems:"end", color:"black", width:"100%", marginTop:'30px'}}>
+                             
+                            <l-waveform size="35" stroke="3.5" speed="1" color="black" ></l-waveform>
+                            <h3 style={{marginLeft:"20px"}}>Loading</h3> 
+                    </div>
+                   )
+                }
+             
             </CCardBody>
         </CCard>
 

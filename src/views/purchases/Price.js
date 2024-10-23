@@ -3,6 +3,8 @@ import { CButton, CCard, CCardBody, CCardFooter, CCardTitle, CForm, CFormInput, 
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../../Context/AuthProvider';
+import CIcon from '@coreui/icons-react';
+import { cilChevronDoubleRight, cilColorBorder } from '@coreui/icons';
 
 function Price() {
 
@@ -56,14 +58,16 @@ function Price() {
                     <CTableDataCell>{purchaseSmsUnit.quantity}</CTableDataCell>
                     <CTableDataCell>{total}</CTableDataCell>
                     <CTableDataCell>
-                        <CButton color="primary"  type="submit" style={{width:"100%"}} onClick={() => setVisible(!visible)}>Edit</CButton>
+                        <CButton color="primary"  type="submit" style={{width:"100%"}} onClick={() => setVisible(!visible)}>
+                        <CIcon icon={cilColorBorder} style={{'--ci-primary-color': 'white'}}/> Edit
+                        </CButton>
                     </CTableDataCell>
                 </CTableRow>
                  
             </CTableBody>
             <>
-                <CButton color="success"  type="submit" style={{margin:'20px 40px', color:"#fff"}} onClick={()=>navigate('/mpesapayment')} >
-                    Checkout 
+                <CButton color="primary"  type="submit" style={{margin:'20px 40px', color:"#fff", width:"30%"}} onClick={()=>navigate('/mpesapayment')} >
+                    Checkout <CIcon icon={cilChevronDoubleRight} style={{'--ci-primary-color': 'white'}}/>
                 </CButton>
             </>  
         </CTable>

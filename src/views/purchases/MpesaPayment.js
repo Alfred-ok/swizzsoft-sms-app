@@ -19,7 +19,9 @@ function MpesaPayment() {
 
   return (
     <>
-        <CCard xs={8} >
+        <CRow>
+        <CCol xs={10} style={{margin:"12px auto"}}>
+        <CCard style={{ boxShadow: '0px 15px 34px 0px rgba(0,0,0,0.2)' }}>
             <CCardBody>
                 <div style={{margin:"auto 0px", backgroundColor:"#0074d9",color:"#fff", height:"60px", borderRadius:"10px"}}>
                     <CRow>
@@ -29,7 +31,7 @@ function MpesaPayment() {
                             </div>
                         </CCol>
                         <CCol>
-                            <div style={{padding:"15px 25px", fontSize:"20px" }}>
+                            <div style={{display:'flex', justifyContent:'end', alignItems:'center', padding:"15px 25px", fontSize:"20px" }}>
                                 Sms Total:  {total}
                             </div>
                         </CCol>
@@ -71,6 +73,8 @@ function MpesaPayment() {
                 </CCardFooter>
             </CCardBody>
         </CCard>
+        </CCol>
+        </CRow>
     </>
   )
 }
